@@ -112,16 +112,14 @@ int n = 0x87654321;
 ```
 
 ## Volatile Keyword or Type Qualifier
-
 ```
 Tells compiler, value of this variable can change unexpectedly without the knowledge of program's current execution.
 Most possibily Hardware can change the state of variable depending on the situation.
 ```
+* `const    (Read-Only)`  : Tells the compiler, "The program code cannot modify this variable."
+* `volatile (Changeable)` : Tells the compiler, "This variable may change unexpectedly (outside the program flow), so do not optimize reads/writes.
 
-* const    (Read-Only)  : Tells the compiler, "The program code cannot modify this variable."
-* volatile (Changeable) : Tells the compiler, "This variable may change unexpectedly (outside the program flow), so do not optimize reads/writes.
-
-```c
+```bash
 const volatile int *ptr;
 The value at this address can change due to hardware or interrupts.
 The C code (the software) is restricted from writing to it.
@@ -139,3 +137,5 @@ The C code (the software) is restricted from writing to it.
 | `int const`<br>`const int` | `* volatile p5;`<br>`* volatile p6;` | Data is constant, pointer may change. |
 | `int volatile`<br>`volatile int` | `* const p7;`<br>`* const p8;` | Data may change but pointer is constant. |
 | `int const`<br>`const int` | `* const p9;`<br>`* const p10;` | Data and Pointer both are constants. |
+
+## Array Arithmetics
