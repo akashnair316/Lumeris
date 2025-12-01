@@ -3,6 +3,7 @@
 - First thought should be : How input and output looks! Start solving from there.
 - Every bit manipulations happens inside the CPU GPR : which is 4 bytes or 8 bytes in size depending on CPU architecture.
 - Think in terms of NIBBLE. 4 bits at a time.
+- Bitwise Hygiene: Always use 1ULL for shifting of numbers that are greater than > 31. `1ULL : unsigned 64 bit integer`
 
 **Mental Model on Bytes**
 ```bash
@@ -118,12 +119,16 @@ Most possibily Hardware can change the state of variable depending on the situat
 ```
 * `const    (Read-Only)`  : Tells the compiler, "The program code cannot modify this variable."
 * `volatile (Changeable)` : Tells the compiler, "This variable may change unexpectedly (outside the program flow), so do not optimize reads/writes.
+* `volatile int * volatile ptr` : Tells the compiler, "the address it holds can change unexpectedly & the content at that address can change unexpectedly".
 
 ```bash
 const volatile int *ptr;
 The value at this address can change due to hardware or interrupts.
 The C code (the software) is restricted from writing to it.
 ```
+
+* `Global const int x = 90` : .rodata,`Flash (ROM)` - Hardware triggers Fault on write
+* `Local const int x = 90`  : Stack,`RAM` - Only compiler-level checking
 
 
 
@@ -138,4 +143,26 @@ The C code (the software) is restricted from writing to it.
 | `int volatile`<br>`volatile int` | `* const p7;`<br>`* const p8;` | Data may change but pointer is constant. |
 | `int const`<br>`const int` | `* const p9;`<br>`* const p10;` | Data and Pointer both are constants. |
 
+
+## Integer or Variable overflow
+
+
 ## Array Arithmetics
+```
+Rank,Operator Group,Operators,Associativity
+Postfix / Scope,() [] -> . ++ -- (postfix),L → R
+Unary,! ~ ++ -- (prefix) + - * (deref) & (addr) sizeof (type),R → L
+Multiplicative,* / %,L → R
+Additive,+ -,L → R
+Bitwise Shift,<< >>,L → R
+Relational,< <= > >=,L → R
+Equality,== !=,L → R
+Bitwise AND,&,L → R
+Bitwise XOR,^,L → R
+Bitwise OR,`,`
+Logical AND,&&,L → R
+Logical OR,`,
+Conditional,?: (Ternary),R → L
+Assignment,= += -= *= /= &= `,= ^= <<= >>=`
+Comma,",",L → R
+```
