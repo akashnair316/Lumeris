@@ -71,19 +71,32 @@ void free_list(Node* head) {
     }
 }
 
-void reverse_list(Node *head)
+Node * reverse_list(Node *head)
 {
     /* head --> 10 --> 20 --> 30 --> NULL
        head --> 30 -->20-->10-->NULL
 
        current-#20000 next-#40000
     */
-   Node *tmp = head;
-   Node *nxt = tmp->next;
+   Node *past, *present, *future;
 
-   while (tmp != NULL) { 
+   past = NULL;//This means first node
+   present = head;
+   while (present != NULL) {
+    if (past == NULL) {
+        future = present->next;
+        past = present;
+        present->next = NULL;
+        present = future;
+        continue; //TODO : try later
+    }
+    future = present->next;
+    present->next = past;
+    past = present;
+    present = future;
    }
-   
+   head = past;
+   return head;
 }
 
 int main(void) {
@@ -93,10 +106,11 @@ int main(void) {
     head = append(head, 10);
     head = append(head, 20);
     head = append(head, 30);
+    head = append(head, 40);
 
     print_list(head);
-    reverse_list(head);
-
+    head = reverse_list(head);
+    print_list(head);
     free_list(head);
     head = NULL; // Manual protection against dangling pointer
 

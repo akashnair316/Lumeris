@@ -149,7 +149,7 @@ The C code (the software) is restricted from writing to it.
 
 ## Array Arithmetics
 ```
-Rank,Operator Group,Operators,Associativity
+Operator Group,Operators,Associativity
 Postfix / Scope,() [] -> . ++ -- (postfix),L → R
 Unary,! ~ ++ -- (prefix) + - * (deref) & (addr) sizeof (type),R → L
 Multiplicative,* / %,L → R
@@ -165,4 +165,16 @@ Logical OR,`,
 Conditional,?: (Ternary),R → L
 Assignment,= += -= *= /= &= `,= ^= <<= >>=`
 Comma,",",L → R
+```
+
+# Linked List
+
+## Deal with reversing a linked list
+- When dealing with reversing, the best way to start of with is to get a mental model of :
+  `past-->present-->future`
+- Where past will start with NULL.
+- Consider changing the present on where ever it is standing like below:
+```
+HEAD->10->20->30->40->NULL
+NULL<-10<-20<-30<-40->HEAD
 ```
