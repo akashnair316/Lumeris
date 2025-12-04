@@ -178,3 +178,34 @@ Comma,",",L → R
 HEAD->10->20->30->40->NULL
 NULL<-10<-20<-30<-40->HEAD
 ```
+
+# Memory
+
+## malloc
+- When we do    : `malloc(4)` it is not just malloc giving you 4 bytes. 
+- It guarantees : 
+    * returned pointer is aligned to at `least alignof(max_type)` (typically `8` or `16 bytes`).
+    * allocator gives you a chunk from a free-list, so consecutive malloc calls `rarely return contiguous memory`.
+
+*Mental model*
+- Think I want 4 bytes chunk and I want 5 quantity of 4 bytes of them(total 20 bytes). And condition is they should be contiguous.
+- What we will do in general is malloc(4) : 5 times. So by doing this the memory that we will be getting is `scattered`.
+
+*Why need contiguous*
+- DMA controllers often require buffers to be aligned to:
+    * 4 bytes
+    * 8 bytes
+    * 16 bytes
+    * 32 bytes
+    * even 64/128 bytes cache line.
+
+*buffers, memory blocks, DMA burst sizes — everything in hardware is designed in `powers of 2`.*
+- If you take any power of 2 number and see it in bit's, there will only 1 bit set.
+- By using above idea, you -1 with above `'n'` value and `AND` both will always result in `0`
+```
+n = 0x1000;
+n & (n - 1) == 0 --> Power of 2
+```
+
+
+
