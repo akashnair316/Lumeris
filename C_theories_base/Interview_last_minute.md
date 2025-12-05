@@ -179,7 +179,7 @@ HEAD->10->20->30->40->NULL
 NULL<-10<-20<-30<-40->HEAD
 ```
 
-# Memory
+# Concept of Memory alignment
 
 ## malloc
 - When we do    : `malloc(4)` it is not just malloc giving you 4 bytes. 
@@ -206,6 +206,24 @@ NULL<-10<-20<-30<-40->HEAD
 n = 0x1000;
 n & (n - 1) == 0 --> Power of 2
 ```
+
+* When talked about alignment the question is : `alignment to how many bytes?` : N bytes --> `N should` be a number that is `power of 2`.
+* Address that we use for some work --> should be aligned to N bytes.
+* 2 conditions :
+```bash
+1} N byte --> should be power of 2.
+2} Address alignment should be with N bytes.
+```
+* Snippet of Code
+```c
+N = 8;
+if ((addr & (N - 1)) == 0) {
+        printf("Aligned  address with 8 bytes\r\n");
+    } else {
+        printf("Not an Aligned  address with 8 bytes\r\n");
+    }
+```
+
 
 
 
