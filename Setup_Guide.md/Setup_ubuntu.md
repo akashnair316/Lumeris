@@ -58,6 +58,6 @@ $CC endian_check.c -o endian_check
 ## YOCTO COMMANDS USEFUL
 * To clean any app or recipe
 ```bash
-bitbake -c cleansstate
+bitbake -c cleansstate <app-name>
 ```
 
